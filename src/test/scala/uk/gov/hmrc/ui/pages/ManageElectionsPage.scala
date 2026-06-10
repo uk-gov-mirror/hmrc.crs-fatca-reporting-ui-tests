@@ -16,23 +16,12 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
+class ManageElectionsPage(year: String = "2023", fiId: String = "683373303") extends BasePage {
+  override val pageUrl: String = baseUrlManualSub + s"/elections/manage-elections-for-$year?fiId=$fiId"
+}
 
-object FileConfirmationPage extends BasePage {
+object ManageElectionsPage {
 
-  override val pageUrl: String = baseUrl + "/file-confirmation/"
-
-  val makeElectionsForFi: By = By.partialLinkText("make any elections for Fourth FI in the service")
-  val makeFatcaElections: By = By.partialLinkText("make any elections for Fifth FI in the service")
-
-  def clickMakeAnyElectionsForFi(): this.type = {
-    click(makeElectionsForFi)
-    this
-  }
-
-  def clickMakeAnyElectionsForFatcaFi(): this.type = {
-    click(makeFatcaElections)
-    this
-  }
-
+  def onPage(year: String = "2023", fiId: String = "683373303"): ManageElectionsPage =
+    new ManageElectionsPage(year, fiId)
 }
