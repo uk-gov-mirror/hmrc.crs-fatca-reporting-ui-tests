@@ -30,7 +30,7 @@ class FiReportingProblemElectionNotSentSpec extends BaseSpec {
       When("The user hits the uploading page and submits a valid XML file")
       UploadFilePage
         .onPage()
-        .fileUpload("valid-crs-election-not-sent-xml.xml")
+        .fileUpload("valid-crs-election-not-sent-fastresponseaccepted-xml.xml")
 
       And("They choose send elections for the reporting period")
       ReportElectionsPage.selectYesAndContinue()
@@ -49,7 +49,12 @@ class FiReportingProblemElectionNotSentSpec extends BaseSpec {
       ProblemElectionNotSentPage.assertElectionNotSentVariant()
       And("The user still send file without elections")
       ProblemElectionNotSentPage.finishSendingFile()
-      StillCheckingYourFilePage.onPage()
+      And("The user navigated to file confirmation page")
+      FileConfirmationPage.checkDynamicPage()
+      Then("The user can make elections for the FI")
+      FileConfirmationPage.clickMakeAnyElectionsForFi()
+      Then("The user navigated to Manage Elections page for FI")
+      ManageElectionsPage.onPage().isOnCorrectPage
 
     }
 
@@ -60,7 +65,7 @@ class FiReportingProblemElectionNotSentSpec extends BaseSpec {
       When("The user hits the uploading page and submits a valid XML file")
       UploadFilePage
         .onPage()
-        .fileUpload("valid-fatca-election-not-sent-giin-to-be-provided.xml")
+        .fileUpload("valid-fatca-election-not-sent-giin-to-be-provided-fastresponseaccepted.xml")
 
       And("They enter a GIIN if prompted")
       RequiredGIINPage.maybeEnterGiin()
@@ -81,7 +86,12 @@ class FiReportingProblemElectionNotSentSpec extends BaseSpec {
       ProblemElectionNotSentPage.assertGiinReceivedElectionsNotSentVariant()
       And("The user still send file without elections")
       ProblemElectionNotSentPage.finishSendingFile()
-      StillCheckingYourFilePage.onPage()
+      And("The user navigated to file confirmation page")
+      FileConfirmationPage.checkDynamicPage()
+      Then("The user can make elections for the FI")
+      FileConfirmationPage.clickMakeAnyElectionsForFatcaFi()
+      Then("The user navigated to Manage Elections page for FI")
+      ManageElectionsPage.onPage(year = "2025", fiId = "683373304").isOnCorrectPage
     }
   }
 }

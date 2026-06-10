@@ -31,11 +31,10 @@ import java.time.Duration
 
 trait BasePage extends BrowserDriver with Matchers with IdGenerators with PageObject {
 
-  case class PageNotFoundException(message: String) extends Exception(message)
-
   val pageUrl: String
   val baseUrl: String             = TestConfiguration.url("crs-fatca-reporting-frontend") + "/report"
   val baseUrlFi: String           = TestConfiguration.url("crs-fatca-financial-institutions")
+  val baseUrlManualSub: String    = TestConfiguration.url("crs-fatca-manual-submission-frontend")
   val submitButtonId: By          = By.id("submit")
   val backLinkText: By            = By.linkText("Back")
   val pageHeader: By              = By.tagName("h1")
@@ -44,15 +43,6 @@ trait BasePage extends BrowserDriver with Matchers with IdGenerators with PageOb
   val noRadioId: By               = By.id("value-no")
   val backToManageReportsLink: By = By.partialLinkText("Back to manage your CRS and FATCA reports")
   val manageFiPage: By            = By.linkText("Send a CRS or FATCA report")
-
-  private def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](Driver.instance)
-    .withTimeout(Duration.ofSeconds(15))
-    .pollingEvery(Duration.ofMillis(200))
-
-  def onPage(url: String = this.pageUrl): this.type = {
-    fluentWait.until(ExpectedConditions.urlToBe(url))
-    this
-  }
 
   def clickOnBackLink(): Unit = {
     onPage()
@@ -64,6 +54,15 @@ trait BasePage extends BrowserDriver with Matchers with IdGenerators with PageOb
     click(submitButtonId)
     this
   }
+
+  def onPage(url: String = this.pageUrl): this.type = {
+    fluentWait.until(ExpectedConditions.urlToBe(url))
+    this
+  }
+
+  private def fluentWait: Wait[WebDriver] = new FluentWait[WebDriver](Driver.instance)
+    .withTimeout(Duration.ofSeconds(15))
+    .pollingEvery(Duration.ofMillis(200))
 
   def selectYesAndContinue(): Unit = {
     onPage(pageUrl)
@@ -93,23 +92,23 @@ trait BasePage extends BrowserDriver with Matchers with IdGenerators with PageOb
   def waitUntilVisible(locator: By): Unit =
     fluentWait.until(ExpectedConditions.visibilityOfElementLocated(locator))
 
-  def waitWith(timeoutSeconds: Int): FluentWait[WebDriver] =
-    new FluentWait[WebDriver](Driver.instance)
-      .withTimeout(Duration.ofSeconds(timeoutSeconds))
-      .pollingEvery(Duration.ofMillis(200))
-
   def waitForSpinnerCycle(timeoutSeconds: Int = 30): Unit = {
     val spinner = By.cssSelector("svg.ccms-loader")
     waitWith(timeoutSeconds).until(ExpectedConditions.invisibilityOfElementLocated(spinner))
   }
 
-  def onPageContaining(urlPart: String): this.type = {
-    fluentWait.until(ExpectedConditions.urlContains(urlPart))
-    this
-  }
+  def waitWith(timeoutSeconds: Int): FluentWait[WebDriver] =
+    new FluentWait[WebDriver](Driver.instance)
+      .withTimeout(Duration.ofSeconds(timeoutSeconds))
+      .pollingEvery(Duration.ofMillis(200))
 
   def checkDynamicPage(): this.type = {
     onPageContaining(pageUrl)
+    this
+  }
+
+  def onPageContaining(urlPart: String): this.type = {
+    fluentWait.until(ExpectedConditions.urlContains(urlPart))
     this
   }
 
@@ -122,5 +121,10 @@ trait BasePage extends BrowserDriver with Matchers with IdGenerators with PageOb
     click(manageFiPage)
     this
   }
+
+  def isOnCorrectPage: Boolean =
+    driver.getCurrentUrl.contains(pageUrl)
+
+  case class PageNotFoundException(message: String) extends Exception(message)
 
 }

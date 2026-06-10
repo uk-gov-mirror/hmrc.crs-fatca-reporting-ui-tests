@@ -14,25 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.pages
+package uk.gov.hmrc.ui.utils
 
-import org.openqa.selenium.By
+import java.time.LocalDate
 
-object FileConfirmationPage extends BasePage {
+trait DateUtil {
 
-  override val pageUrl: String = baseUrl + "/file-confirmation/"
-
-  val makeElectionsForFi: By = By.partialLinkText("make any elections for Fourth FI in the service")
-  val makeFatcaElections: By = By.partialLinkText("make any elections for Fifth FI in the service")
-
-  def clickMakeAnyElectionsForFi(): this.type = {
-    click(makeElectionsForFi)
-    this
-  }
-
-  def clickMakeAnyElectionsForFatcaFi(): this.type = {
-    click(makeFatcaElections)
-    this
-  }
+  val now: LocalDate     = LocalDate.now()
+  val currentYear: Int   = now.getYear
+  val reportingYear: Int = currentYear - 1
 
 }
