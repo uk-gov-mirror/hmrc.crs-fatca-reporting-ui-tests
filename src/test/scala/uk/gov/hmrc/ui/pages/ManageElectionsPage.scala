@@ -16,12 +16,12 @@
 
 package uk.gov.hmrc.ui.pages
 
-class ManageElectionsPage(year: String = "2023", fiId: String = "683373303") extends BasePage {
+class ManageElectionsPage(year: String = "2023", fiId: String = "TES683373303") extends BasePage {
   override val pageUrl: String = baseUrlManualSub + s"/elections/manage-elections-for-$year?fiId=$fiId"
 }
 
 object ManageElectionsPage {
 
-  def onPage(year: String = "2023", fiId: String = "683373303"): ManageElectionsPage =
+  def onPage(year: String = "2023", fiId: String = "TES683373303"): ManageElectionsPage =
     new ManageElectionsPage(year, fiId)
 }
