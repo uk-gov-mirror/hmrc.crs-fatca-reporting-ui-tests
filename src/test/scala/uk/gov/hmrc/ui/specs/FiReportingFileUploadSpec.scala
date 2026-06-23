@@ -54,6 +54,25 @@ class FiReportingFileUploadSpec extends BaseSpec {
 
     }
 
+    Scenario("Upload Journey LargeFile - Standard FI)", ReportingTests) {
+      AuthLoginPage.loginAsOrganisationUser()
+      When("The user hits the uploading page and submits a valid XML file")
+      UploadFilePage
+        .onPage()
+        .fileUpload("LargeFiles/valid-crs-large-fastresponseaccepted-xml.xml")
+      And("They choose to send elections for the reporting period")
+      ReportElectionsPage.selectYesAndContinue()
+      And("They answer the CRS questions (contracts, dormant accounts, thresholds)")
+      CrsContractsPage.selectYesAndContinue()
+      CrsDormantAccountsPage.selectYesAndContinue()
+      CrsThresholdsPage.selectYesAndContinue()
+      Then("They continue from the Check your file details page")
+      CheckYourFileDetailsPage.submitPage()
+      SendYourFilePage.submitFileForValidation()
+      Then("The user should be taken to File Successfully sent page")
+      FileConfirmationPage.checkDynamicPage()
+    }
+
     Scenario("Upload rejected fast journey for Fi user CRS", ReportingTests) {
       AuthLoginPage.loginAsOrganisationUser()
       When("The user hits the uploading page and submits a valid XML file")
@@ -85,6 +104,27 @@ class FiReportingFileUploadSpec extends BaseSpec {
 
     }
 
+    Scenario("Upload Large Files - rejected fast journey for Fi user CRS", ReportingTests) {
+      AuthLoginPage.loginAsOrganisationUser()
+      When("The user hits the uploading page and submits a valid XML file")
+
+      UploadFilePage
+        .onPage()
+        .fileUpload("LargeFiles/valid-crs-large-fastresponserejected-xml.xml")
+      And("They choose to send elections for the reporting period")
+      ReportElectionsPage.selectYesAndContinue()
+
+      And("They answer the CRS questions (contracts, dormant accounts, thresholds)")
+      CrsContractsPage.selectYesAndContinue()
+      CrsDormantAccountsPage.selectYesAndContinue()
+      CrsThresholdsPage.selectYesAndContinue()
+      Then("They continue from the Check your file details page")
+      CheckYourFileDetailsPage.submitPage()
+      SendYourFilePage.submitFileForValidation()
+      And("The user should be taken to There is a problem with your file data page")
+      RulesErrorsPage.checkDynamicPage()
+    }
+
     Scenario("Upload slow journey accepted for Fi is user CRS", ReportingTests) {
       AuthLoginPage.loginAsOrganisationUser()
       When("The user hits the uploading page and submits a valid XML file")
@@ -92,6 +132,26 @@ class FiReportingFileUploadSpec extends BaseSpec {
       UploadFilePage
         .onPage()
         .fileUpload("valid-crs-slowresponseaccepted-xml.xml")
+      And("They choose to send elections for the reporting period")
+      ReportElectionsPage.selectNoAndContinue()
+      Then("They continue from the Check your file details page")
+      CheckYourFileDetailsPage.submitPage()
+      SendYourFilePage.submitFileForValidation()
+      Then("The user lands on 'still checking your file' page")
+      StillCheckingYourFilePage.waitUntilFileProcessed()
+      And("The user should be taken to the File Passed checks page")
+      FilePassedChecksPage.submitPage()
+      And("The user should be taken to File Successfully sent page")
+      FileConfirmationPage.checkDynamicPage()
+
+    }
+    Scenario("Upload Large File - slow journey accepted for Fi is user CRS", ReportingTests) {
+      AuthLoginPage.loginAsOrganisationUser()
+      When("The user hits the uploading page and submits a valid XML file")
+
+      UploadFilePage
+        .onPage()
+        .fileUpload("LargeFiles/valid-crs-large-slowresponseaccepted-xml.xml")
       And("They choose to send elections for the reporting period")
       ReportElectionsPage.selectNoAndContinue()
       Then("They continue from the Check your file details page")
@@ -114,6 +174,25 @@ class FiReportingFileUploadSpec extends BaseSpec {
         .onPage()
         .fileUpload("valid-crs-slowresponserejected-xml.xml")
       And("They choose to send elections for the reporting period")
+      ReportElectionsPage.selectNoAndContinue()
+      Then("They continue from the Check your file details page")
+      CheckYourFileDetailsPage.submitPage()
+      SendYourFilePage.submitFileForValidation()
+      Then("The user lands on 'still checking your file' page")
+      StillCheckingYourFilePage.waitUntilFileProcessed()
+      And("The user should be taken to the File Failed checks page")
+      FileFailedChecksPage.submitPage()
+      And("The user should be taken to There is a problem with your file data page")
+      RulesErrorsPage.checkDynamicPage()
+    }
+
+    Scenario("Upload Large file - slow failed journey for Fi is user CRS", ReportingTests) {
+      AuthLoginPage.loginAsOrganisationUser()
+      When("The user hits the uploading page and submits a valid XML file")
+      UploadFilePage
+        .onPage()
+        .fileUpload("LargeFiles/valid-crs-large-slowresponserejected-xml.xml")
+      And("Continues the journey for any elections made already for the reporting period")
       ReportElectionsPage.selectNoAndContinue()
       Then("They continue from the Check your file details page")
       CheckYourFileDetailsPage.submitPage()
