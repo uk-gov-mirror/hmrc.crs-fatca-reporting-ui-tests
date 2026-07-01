@@ -230,6 +230,22 @@ class FiReportingFileUploadSpec extends BaseSpec {
       RulesErrorsPage.readAllTheRulesErrors()
     }
 
+    Scenario("Upload a FATCA file with business rules-errors", SoloTests) {
+      AuthLoginPage.loginAsOrganisationUser()
+      When("The user hits the uploading page and submits a valid XML file")
+      UploadFilePage
+        .onPage()
+        .fileUpload("valid-fatca-fastresponserejected-xml.xml")
+      Then("The user provides the GIIN if required")
+      RequiredGIINPage.maybeEnterGiin()
+      And("Continues the journey for any elections made already for the reporting period")
+      ReportElectionsPage.selectNoAndContinue()
+      Then("They continue from the Check your file details page")
+      CheckYourFileDetailsPage.submitPage()
+      SendYourFilePage.submitFileForValidation()
+      RulesErrorsPage.readAllTheFatcaRulesErrors()
+    }
+
     Scenario("Upload journey for Fi is user CRS and the reporting period is not within CY-12 and CY", ReportingTests) {
       AuthLoginPage.loginAsOrganisationUser()
       When("The user hits the uploading page and submits a valid XML file")

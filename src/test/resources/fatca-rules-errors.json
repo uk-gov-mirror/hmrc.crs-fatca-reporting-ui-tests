@@ -1,0 +1,397 @@
+[
+  {
+    "errorType": "complex",
+    "error": {
+      "bodyForbidden": ["-- (double dash)", "&# (ampersand hash)", "/* (slash asterisk)"],
+      "refIdForbidden": ["' (apostrophe)", "\" (quotation mark)", "& (ampersand)", "< (less than)", "> (greater than)"],
+      "replacements": {
+        "' (apostrophe)": "&apos;",
+        "\" (quotation mark)": "&quot;",
+        "& (ampersand)": "&amp;",
+        "< (less than)": "&lt;",
+        "> (greater than)": "&gt;"
+      }
+    }
+  },
+  {
+    "errorType": "simple",
+    "error": "The file must not contain emoji Unicode characters."
+  },
+  {
+    "errorType": "simple",
+    "error": "One or more of the required elements in the file contains only whitespace."
+  },
+  {
+    "errorType": "simple",
+    "error": "SendingCompanyIN is required and must contain the FI ID for the financial institution in this report."
+  },
+  {
+    "errorType": "mixed",
+    "error": {
+      "intro": "MessageRefId element must be from 24 to 47 characters. It must also match the file name and include the following in the order referenced:",
+      "mustContain": [
+        "'GB'",
+        "the same value as the year in the MessageSpec ReportingPeriod in the format 'YYYY'",
+        "'GB'",
+        "a hyphen (-)",
+        "the 13-character FI ID from the MessageSpec SendingCompanyIN",
+        "a hyphen (-)",
+        "1 to 24 characters of your choice to make the ID unique"
+      ],
+      "closingRule": "MessageRefId must also not include less than signs (<), greater than signs (>), colons (:), straight double quotes (\"), apostrophes (‘), ampersands (&), forward slashes (/), backslashes (\\), vertical bars (|), question marks (?) or asterisks (*)."
+    }
+  },
+  {
+    "errorType": "paragraphs",
+    "error": {
+      "paragraphs": [
+        "File name must match the MessageRefId, excluding the .xml file extension.",
+        "If you uploaded a file with a backslash (\\) in the file name, then this will shorten the file name and cause a mismatch. Remove all backslashes from the MessageRefId and file name.",
+        "You must also remove less than signs (<), greater than signs (>), colons (:), straight double quotes (\"), apostrophes (‘), ampersands (&), forward slashes (/), vertical bars (|), question marks (?) and asterisks (*) from the file name."
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error": "MessageRefId must not be the same as one used for a previously sent file. We only keep a record of the MessageRefId for successfully sent files."
+  },
+  {
+    "errorType": "simple",
+    "error":"MessageSpec must not contain a CorrMessageRefId."
+  },
+  {
+    "errorType": "simple",
+    "error":"ReportingPeriod must be in the format YYYY-MM-DD, with 12 as the month and 31 as the day."
+  },
+  {
+    "errorType": "simple",
+    "error":"ReportingPeriod must be 2014-12-31 or later."
+  },
+  {
+    "errorType": "simple",
+    "error":"ReportingPeriod cannot contain a date later than the current year."
+  },
+  {
+    "errorType": "simple",
+    "error":"Each file must contain only one FATCA element."
+  },
+  {
+    "errorType": "simple",
+    "error":"If the ReportingFI DocTypeIndic is FATCA2 or FATCA4, the ReportingPeriod must match the previously sent file."
+  },
+  {
+    "errorType": "simple",
+    "error":"FATCA element must only contain one ReportingGroup."
+  },
+  {
+    "errorType": "simple",
+    "error":"ReportingFI must contain one ResCountryCode element. The value must be ‘GB’."
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "ReportingFI section must contain only one TIN that has an issuedBy attribute value of 'US'.",
+        "The TIN value must be in a 19-character GIIN format and include the following in the order referenced:"
+      ],
+      "bullets": [
+        "6 letters or numbers, excluding 'O'",
+        "one full stop (.)",
+        "5 letters or numbers, excluding 'O'",
+        "one full stop (.)",
+        "2 letters, excluding 'O'",
+        "one full stop (.)",
+        "3 numbers"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": "These sections must contain a TIN element:",
+      "bullets": [
+        "ReportingFI",
+        "Sponsor, Individual and Organisation, if provided"
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error":"A TIN must have an issuedBy attribute."
+  },
+  {
+    "errorType": "mixed",
+    "error": {
+      "intro": "If not a GIIN, TIN values outside of the ReportingFI and Sponsor must be in one of the following formats:",
+      "mustContain": [
+        "3 numbers, a hyphen (-), 2 numbers, a hyphen (-) and 4 numbers",
+        "2 numbers, a hyphen (-) and 7 numbers",
+        "9 numbers"
+      ],
+      "closingRule": "For example, 123-45-3789, 12-3456789 or 123456789."
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "Sponsor section must contain only one TIN that has an issuedBy attribute value of 'US'.",
+        "The TIN value must be in a 19-character GIIN format and include the following in the order referenced:"
+      ],
+      "bullets": [
+        "6 letters or numbers, excluding 'O'",
+        "one full stop (.)",
+        "5 letters or numbers, excluding 'O'",
+        "one full stop (.)",
+        "2 letters, excluding 'O'",
+        "one full stop (.)",
+        "3 numbers"
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error":"Individual Name element must not contain the nameType attribute."
+  },
+  {
+    "errorType": "simple",
+    "error":"Address element must not contain the legalAddressType attribute."
+  },
+  {
+    "errorType": "simple",
+    "error":"Address element must contain the AddressFix element."
+  },
+  {
+    "errorType": "simple",
+    "error":"ReportingFI FilerCategory value must not be FATCA603, FATCA604, FATCA605, FATCA606, FATCA607, FATCA608, FATCA609 or FATCA611."
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "The file must contain the ReportingFI FilerCategory if both of the following apply:"
+      ],
+      "bullets": [
+        "ReportingFI DocTypeIndic is FATCA1",
+        "the file does not contain a Sponsor section"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "The file must contain the Sponsor FilerCategory and not the ReportingFI FilerCategory if both of the following apply:"
+      ],
+      "bullets": [
+        "ReportingFI DocTypeIndic is FATCA1",
+        "the file contains a Sponsor element"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "The file must not contain the ReportingFI FilerCategory element if both of the following apply:"
+      ],
+      "bullets": [
+        "ReportingFI DocTypeIndic is FATCA2 or FATCA4",
+        "the file does not contain a Sponsor element but its FATCA1 file did"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "The file must contain the ReportingFI FilerCategory element if both of the following apply:"
+      ],
+      "bullets": [
+        "ReportingFI DocTypeIndic is FATCA2 or FATCA4",
+        "this file and its FATCA1 file do not contain a Sponsor element"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "The file must contain the Sponsor FilerCategory and not the ReportingFI FilerCategory if both of the following apply:"
+      ],
+      "bullets": [
+        "ReportingFI DocTypeIndic is FATCA2 or FATCA4",
+        "the file contains a Sponsor section"
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error":"DocTypeIndic contains a value that indicates the file contains test data, like FATCA11, FATCA12, FATCA13 or FATCA14. Replace the test data value with a value for real data, such as FATCA1, FATCA2 or FATCA4."
+  },
+  {
+    "errorType": "simple",
+    "error":"All DocTypeIndic values must be the same throughout the file. The values must be either FATCA1, FATCA2 or FATCA4."
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": [
+        "DocRefId element must be from 44 to 90 characters and include the following in the order referenced:"
+      ],
+      "bullets": [
+        "the same value as the year from the MessageSpec ReportingPeriod in the format 'YYYY'",
+        "a hyphen (-)",
+        "the same value as the 13-character FI ID from the MessageSpec SendingCompanyIN",
+        "a hyphen (-)",
+        "the same value as the MessageRefId for this submission",
+        "1 to 24 characters of your choice to make the ID unique"
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error": "DocRefId values must be unique across all submitted files. We only keep a record of these IDs for successfully sent files."
+  },
+  {
+    "errorType": "simple",
+    "error": "DocSpec section must not contain a CorrMessageRefId element."
+  },
+  {
+    "errorType": "simple",
+    "error": "If the DocTypeIndic is FATCA1, the DocSpec section must not contain a CorrDocRefId element."
+  },
+  {
+    "errorType": "simple",
+    "error": "If the DocTypeIndic is FATCA2 or FATCA4, the DocSpec section must contain a CorrDocRefId element."
+  },
+  {
+    "errorType": "simple",
+    "error": "The same CorrDocRefId cannot be used more than once in each file."
+  },
+  {
+    "errorType": "simple",
+    "error": "The CorrDocRefId provided is for information that has already been corrected, amended or voided."
+  },
+  {
+    "errorType": "simple",
+    "error": "The CorrDocRefId provided does not match any DocRefId in our records for the same type of section."
+  },
+  {
+    "errorType": "simple",
+    "error": "The AccountReport CorrDocRefId must contain an AccountReport DocRefId from the linked FATCA1 file for the same ReportingFI and ReportingPeriod."
+  },
+  {
+    "errorType": "paragraphs",
+    "error": {
+      "paragraphs": [
+        "A CorrDocRefId cannot contain the DocRefId of a NilReport section.",
+        "If you previously sent a NilReport and now have information to report for the same reporting period, send a FATCA1 new information file. We'll then ignore the previous NilReport."
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error": "ReportingGroup must not contain Intermediary or PoolReport sections."
+  },
+  {
+    "errorType": "simple",
+    "error": "If the Sponsor, AccountHolder and SubstantialOwner sections are provided, they must contain a ResCountryCode element."
+  },
+  {
+    "errorType": "simple",
+    "error": "AccountHolder or SubstantialOwner sections must contain at least one ResCountryCode element with a value of ‘US’."
+  },
+  {
+    "errorType": "simple",
+    "error": "If an AccountReport does not contain ‘US’ for any of the Individual ResCountryCode values, the account should not be reported under FATCA."
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": "The account should not be reported under FATCA if both of the following apply:",
+      "bullets": [
+        "the AcctHolderType is FATCA103 or FATCA104",
+        "there are no AccountHolder Organisation ResCountryCode values of ‘US’"
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error": "Sponsor FilerCategory value must not be FATCA601, FATCA602, FATCA603, FATCA604, FATCA605, FATCA606, FATCA610 or FATCA611."
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": "Individual TIN element must not contain the values 000000000, 666666666 or 888888888 when both the:",
+      "bullets": [
+        "reporting period is 2023 or later",
+        "issuedBy attribute is ‘US’"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": "Organisation TIN element must not contain the values 000000000, 222222222, 000222111, 333333333 or 888888888 when both the:",
+      "bullets": [
+        "reporting period is 2023 or later",
+        "issuedBy attribute is ‘US’"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": "If the AcctNumberType is OECD601, the AccountNumber for the IBAN must include the following in the order referenced:",
+      "bullets": [
+        "2 letter country code",
+        "2 numbers",
+        "one to 30 letters or numbers"
+      ]
+    }
+  },
+  {
+    "errorType": "paragraphWithBullets",
+    "error": {
+      "intro": "If the AcctNumberType is OECD603, the AccountNumber for the ISIN must include the following in the order referenced:",
+      "bullets": [
+        "2 letter country code",
+        "9 letters or numbers for the national security identifier",
+        "one number"
+      ]
+    }
+  },
+  {
+    "errorType": "simple",
+    "error": "If the AccountReport section contains the AccountHolder Organisation section, it must also contain the AcctHolderType element. AcctHolderType value cannot be FATCA105 or FATCA106."
+  },
+  {
+    "errorType": "simple",
+    "error": "Individual must not contain the Nationality element."
+  },
+  {
+    "errorType": "simple",
+    "error": "BirthDate must be 1900-01-01 or later and not later than the current date."
+  },
+  {
+    "errorType": "simple",
+    "error": "AccountReport section must not contain the SubstantialOwner element if the AccountHolder AcctHolderType is FATCA103 or FATCA104."
+  },
+  {
+    "errorType": "simple",
+    "error": "The file must not contain the PaymentTypeDesc element."
+  },
+  {
+    "errorType": "simple",
+    "error": "AccountReport must not contain the CARRef section."
+  },
+  {
+    "errorType": "simple",
+    "error": "AccountReport must not contain the AdditionalData element."
+  },
+  {
+    "errorType": "simple",
+    "error": "AccountReport must not contain the SubstantialOwner element if it also contains the AccountHolder Individual element."
+  }
+]
