@@ -307,16 +307,6 @@
     "error": "If an AccountReport does not contain ‘US’ for any of the Individual ResCountryCode values, the account should not be reported under FATCA."
   },
   {
-    "errorType": "paragraphWithBullets",
-    "error": {
-      "intro": "The account should not be reported under FATCA if both of the following apply:",
-      "bullets": [
-        "the AcctHolderType is FATCA103 or FATCA104",
-        "there are no AccountHolder Organisation ResCountryCode values of ‘US’"
-      ]
-    }
-  },
-  {
     "errorType": "simple",
     "error": "Sponsor FilerCategory value must not be FATCA601, FATCA602, FATCA603, FATCA604, FATCA605, FATCA606, FATCA610 or FATCA611."
   },
