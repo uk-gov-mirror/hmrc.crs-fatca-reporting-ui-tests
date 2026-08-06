@@ -205,6 +205,28 @@ class FiReportingFileUploadSpec extends BaseSpec {
       RulesErrorsPage.checkDynamicPage()
     }
 
+    Scenario("upload an invalid file to problem page", ReportingTests) {
+      AuthLoginPage.loginAsOrganisationUser()
+      When("The user hits the uploading page and submits an invalid XML file")
+      UploadFilePage
+        .onPage()
+        .fileUpload("invalid-xml.xml")
+      Then("There is a problem with the formating of your file")
+      ProblemInvalidPage.invalidXml()
+    }
+
+    Scenario("Upload a CRS file with Schema errors to problem page", ReportingTests) {
+      AuthLoginPage.loginAsOrganisationUser()
+      When("The user hits the uploading page and submits a valid XML file")
+      UploadFilePage
+        .onPage()
+        .fileUpload("data-errors-xml.xml")
+      And("Continues the journey to check the file details")
+      Then("The user navigated to data errors page with heading There is a problem with your file data page")
+      DataErrorsPage.dataErrors()
+
+    }
+
     Scenario("Upload a CRS file with large number of CRS Schema error messages", SoloTests) {
       AuthLoginPage.loginAsOrganisationUser()
       When("The user hits the uploading page and submits a valid XML file")
@@ -214,7 +236,6 @@ class FiReportingFileUploadSpec extends BaseSpec {
       And("Continues the journey to check the file details")
       Then("The user navigated to data errors page with heading There is a problem with your file data page")
       DataErrorsPage.verifyAllErrors()
-
     }
 
     Scenario("Upload a CRS file with business rules-errors", SoloTests) {
