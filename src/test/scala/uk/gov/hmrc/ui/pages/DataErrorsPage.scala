@@ -21,7 +21,12 @@ import org.scalatest.matchers.should.Matchers
 
 object DataErrorsPage extends BasePage with Matchers {
 
-  override val pageUrl: String = baseUrl + "/problem/data-errors"
+  lazy val expectedErrors: Seq[String] =
+    loadExpectedErrors()
+  override val pageUrl: String         = baseUrl + "/problem/data-errors"
+
+  def dataErrors(): this.type =
+    onPage(pageUrl)
 
   def loadExpectedErrors(): Seq[String] = {
     val source = scala.io.Source.fromResource("expected-errors.txt")
@@ -30,19 +35,6 @@ object DataErrorsPage extends BasePage with Matchers {
     finally
       source.close()
   }
-
-  def normalize(errors: Seq[String]): Seq[String] =
-    errors.map(_.trim)
-
-  def getActualErrors: Seq[String] =
-    driver
-      .findElements(By.xpath("//*[contains(@id,'errorMessage')]"))
-      .toArray
-      .map(_.asInstanceOf[WebElement].getText.trim)
-      .toSeq
-
-  lazy val expectedErrors: Seq[String] =
-    loadExpectedErrors()
 
   def verifyAllErrors(): Unit = {
 
@@ -64,5 +56,15 @@ object DataErrorsPage extends BasePage with Matchers {
       actual should equal(expected)
     }
   }
+
+  def normalize(errors: Seq[String]): Seq[String] =
+    errors.map(_.trim)
+
+  def getActualErrors: Seq[String] =
+    driver
+      .findElements(By.xpath("//*[contains(@id,'errorMessage')]"))
+      .toArray
+      .map(_.asInstanceOf[WebElement].getText.trim)
+      .toSeq
 
 }
